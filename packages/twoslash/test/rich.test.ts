@@ -227,3 +227,31 @@ Number.parseInt(todo.title, 10);
 
   expect(styleTag + htmlWithSeparateLine + colorToggle).toMatchFileSnapshot('./out/rich/line-query.html')
 })
+
+it('renders-elysia-properly', async () => {
+  const code = `\
+import { Elysia } from 'elysia'
+//       ^?
+
+new Elysia()
+//  ^?
+`
+
+  const html = await codeToHtml(code, {
+    lang: 'ts',
+    themes: {
+      dark: 'vitesse-dark',
+      light: 'vitesse-light',
+    },
+    defaultColor: false,
+    transformers: [
+      transformerTwoslash({
+        renderer: rendererRich({
+          queryRendering: 'line',
+        }),
+      }),
+    ],
+  })
+
+  expect(styleTag + html).toMatchFileSnapshot('./out/rich/elysia-correct.html')
+})
