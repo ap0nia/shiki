@@ -253,5 +253,5 @@ new Elysia()
     ],
   })
 
-  expect(styleTag + html).toMatchFileSnapshot('./out/rich/elysia-correct.html')
+  expect(styleTag + html).toMatchFileSnapshot('./out/rich/elysia-inline.html')
 })
